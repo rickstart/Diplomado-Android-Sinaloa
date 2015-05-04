@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Profile Page</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="name">Ricardo Centeno</string>
+    <string name="phone">5514382887</string>
+    <string name="email">ricardo.celj@gmail.com</string>
+    <string name="twitter">\@rickstart</string>
+</resources>
