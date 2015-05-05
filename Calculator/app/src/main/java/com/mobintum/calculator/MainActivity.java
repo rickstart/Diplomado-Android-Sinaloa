@@ -2,7 +2,6 @@ package com.mobintum.calculator;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +16,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     TextView textResult;
 
     Double oper1=0.0, oper2=0.0;
+    boolean flagOper = true;
+    int typeOper=0;
+    final int PLUS = 1, LESS=2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        Button btnTemp;
 
         switch(v.getId()){
 
@@ -103,17 +106,60 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 oper2=0.0;
                 break;
 
+            case R.id.btnDot:
+                btnTemp = (Button) findViewById(v.getId());
+
+
+                if(flagOper){
+                    if(!textResult.getText().toString().contains("."))
+                    textResult.append(btnTemp.getText().toString());
+                }else{
+                    textResult.setText(btnTemp.getText().toString());
+                    flagOper = true;
+                }
+
+
+                break;
+            case R.id.btnEqual:
+
+                switch(typeOper){
+
+                    case PLUS:
+                        if(oper1==0.0){
+                            oper1 = Double.valueOf(textResult.getText().toString());
+
+                            flagOper = false;
+                            return;
+                        }else if(flagOper){
+                            oper2 = Double.valueOf(textResult.getText().toString());
+
+                        }
+
+                        if(oper2!=0.0){
+                            Double operation = oper1+oper2;
+                            textResult.setText(operation.toString());
+                            oper1=operation;
+                            oper2=0.0;
+
+                            flagOper = false;
+                            return;
+                        }
+                        break;
+                }
+
+                break;
+
             case R.id.btnPlus:
 
-                Log.e("OPERATION", "OPER1 "+oper1+" OPER2 "+oper2);
+                typeOper = PLUS;
+
                 if(oper1==0.0){
                     oper1 = Double.valueOf(textResult.getText().toString());
-                    Log.e("OPERATION1", "OPER1 "+oper1+" OPER2 "+oper2);
+
+                    flagOper = false;
                     return;
-                }
-                if(oper1!=0.0){
+                }else if(flagOper){
                     oper2 = Double.valueOf(textResult.getText().toString());
-                    Log.e("OPERATION2", "OPER1 "+oper1+" OPER2 "+oper2);
 
                 }
 
@@ -122,27 +168,24 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     textResult.setText(operation.toString());
                     oper1=operation;
                     oper2=0.0;
-                    Log.e("OPERATION", ""+operation);
+
+                    flagOper = false;
                     return;
-
                 }
-
-
-
 
                 break;
 
 
-
             default:
-                Button btnTemp = (Button) findViewById(v.getId());
-                if(oper1==0.0){
+                btnTemp = (Button) findViewById(v.getId());
+                if(flagOper){
                     textResult.append(btnTemp.getText().toString());
-
-
                 }else{
                     textResult.setText(btnTemp.getText().toString());
+                    flagOper = true;
                 }
+
+
 
                 break;
 
