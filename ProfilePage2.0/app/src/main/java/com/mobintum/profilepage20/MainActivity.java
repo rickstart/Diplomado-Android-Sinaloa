@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
-    ImageView ImgPhoto;
+    ImageView imgPhoto;
     TextView textName, textEmail, textPhone, textTwitter;
     Button btnBack, btnNext;
     ArrayList<Profile> profiles;
@@ -27,7 +27,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         profiles = getData();
 
-        ImgPhoto = (ImageView) findViewById(R.id.ImgPhoto);
+        imgPhoto = (ImageView) findViewById(R.id.ImgPhoto);
         textName = (TextView) findViewById(R.id.textName);
         textPhone = (TextView) findViewById(R.id.textPhone);
         textEmail = (TextView) findViewById(R.id.textEmail);
@@ -46,6 +46,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void loadData(){
         Profile profile = profiles.get(position);
 
+        imgPhoto.setImageDrawable(profile.getPhoto());
         textName.setText(profile.getName());
         textPhone.setText(profile.getPhone());
         textEmail.setText(profile.getEmail());

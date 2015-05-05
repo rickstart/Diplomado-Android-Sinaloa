@@ -14,7 +14,7 @@
             android:id="@+id/ImgPhoto"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@mipmap/pic_ricardo.jpeg"
+            android:src="@mipmap/pic_ricardo"
             android:paddingBottom="@dimen/medium_padding"/>
         
         <TextView
