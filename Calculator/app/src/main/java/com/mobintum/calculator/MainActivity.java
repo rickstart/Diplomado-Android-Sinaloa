@@ -18,7 +18,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     Double oper1=0.0, oper2=0.0;
     boolean flagOper = true;
     int typeOper=0;
-    final int PLUS = 1, LESS=2;
+    final int EMPTY = 0, PLUS = 1, LESS=2, MULTIPLY=3, DIVISION=4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +93,35 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
+    public Double operation(int typeOper,Double oper1, Double oper2){
+        Double result=0.0;
+
+
+        switch(typeOper){
+
+            case PLUS:
+                result = oper1 + oper2;
+                break;
+
+            case MULTIPLY:
+                result = oper1*oper2;
+                break;
+
+            case LESS:
+                result = oper1-oper2;
+                break;
+
+            case DIVISION:
+                result = oper1/oper2;
+                break;
+
+
+        }
+
+
+
+        return result;
+    }
 
     @Override
     public void onClick(View v) {
@@ -117,65 +146,151 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     textResult.setText(btnTemp.getText().toString());
                     flagOper = true;
                 }
-
-
                 break;
+
             case R.id.btnEqual:
+                if(oper2==0.0 && oper1!=0.0 && flagOper) {
+                    oper2 = Double.valueOf(textResult.getText().toString());
+                    flagOper = false;
 
-                switch(typeOper){
-
-                    case PLUS:
-                        if(oper1==0.0){
-                            oper1 = Double.valueOf(textResult.getText().toString());
-
-                            flagOper = false;
-                            return;
-                        }else if(flagOper){
-                            oper2 = Double.valueOf(textResult.getText().toString());
-
-                        }
-
-                        if(oper2!=0.0){
-                            Double operation = oper1+oper2;
-                            textResult.setText(operation.toString());
-                            oper1=operation;
-                            oper2=0.0;
-
-                            flagOper = false;
-                            return;
-                        }
-                        break;
                 }
+
+                if( oper1!=0.0 && oper2 != 0.0 ){
+                    textResult.setText(operation(typeOper, oper1,oper2).toString());
+                    oper1=operation(typeOper, oper1,oper2);
+                    oper2=0.0;
+                    flagOper = false;
+                    typeOper = EMPTY;
+                    return;
+
+                }
+
 
                 break;
 
             case R.id.btnPlus:
+                if(oper2==0.0 && oper1!=0.0 && flagOper) {
+                    oper2 = Double.valueOf(textResult.getText().toString());
+                    flagOper = false;
+
+                }
+
+                if( oper1!=0.0 && oper2 != 0.0 ){
+                    textResult.setText(operation(typeOper, oper1,oper2).toString());
+                    oper1=operation(typeOper, oper1,oper2);
+                    oper2=0.0;
+                    flagOper = false;
+                    typeOper = PLUS;
+                    return;
+
+                }
 
                 typeOper = PLUS;
 
-                if(oper1==0.0){
+
+                if(oper1==0.0) {
                     oper1 = Double.valueOf(textResult.getText().toString());
-
                     flagOper = false;
                     return;
-                }else if(flagOper){
+                }
+
+
+
+
+
+
+                break;
+
+            case R.id.btnMultiply:
+
+                if(oper2==0.0 && oper1!=0.0 && flagOper) {
                     oper2 = Double.valueOf(textResult.getText().toString());
+                    flagOper = false;
 
                 }
 
-                if(oper2!=0.0){
-                    Double operation = oper1+oper2;
-                    textResult.setText(operation.toString());
-                    oper1=operation;
+                if( oper1!=0.0 && oper2 != 0.0 ){
+                    textResult.setText(operation(typeOper, oper1,oper2).toString());
+                    oper1=operation(typeOper, oper1,oper2);
                     oper2=0.0;
+                    flagOper = false;
+                    typeOper = MULTIPLY;
+                    return;
 
+                }
+
+                typeOper = MULTIPLY;
+
+
+                if(oper1==0.0) {
+                    oper1 = Double.valueOf(textResult.getText().toString());
                     flagOper = false;
                     return;
                 }
+
+
+                break;
+
+            case R.id.btnLess:
+
+                if(oper2==0.0 && oper1!=0.0 && flagOper) {
+                    oper2 = Double.valueOf(textResult.getText().toString());
+                    flagOper = false;
+
+                }
+
+                if( oper1!=0.0 && oper2 != 0.0 ){
+                    textResult.setText(operation(typeOper, oper1,oper2).toString());
+                    oper1=operation(typeOper, oper1,oper2);
+                    oper2=0.0;
+                    flagOper = false;
+                    typeOper = LESS;
+                    return;
+
+                }
+
+                typeOper = LESS;
+
+
+                if(oper1==0.0) {
+                    oper1 = Double.valueOf(textResult.getText().toString());
+                    flagOper = false;
+                    return;
+                }
+
 
                 break;
 
 
+            case R.id.btnDivision:
+
+                if(oper2==0.0 && oper1!=0.0 && flagOper) {
+                    oper2 = Double.valueOf(textResult.getText().toString());
+                    flagOper = false;
+
+                }
+
+                if( oper1!=0.0 && oper2 != 0.0 ){
+                    textResult.setText(operation(typeOper, oper1,oper2).toString());
+                    oper1=operation(typeOper, oper1,oper2);
+                    oper2=0.0;
+                    flagOper = false;
+                    typeOper = DIVISION;
+                    return;
+
+                }
+
+                typeOper = DIVISION;
+
+
+                if(oper1==0.0) {
+                    oper1 = Double.valueOf(textResult.getText().toString());
+                    flagOper = false;
+                    return;
+                }
+
+
+                break;
             default:
                 btnTemp = (Button) findViewById(v.getId());
                 if(flagOper){
