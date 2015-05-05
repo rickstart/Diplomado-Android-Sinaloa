@@ -60,9 +60,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         ArrayList<Profile> profiles = new ArrayList<Profile>();
 
 
-        profiles.add( new Profile("Ricardo Centeno","5514382887", "@rickstart", "ricardo.celj@gmail.com", getDrawable(R.mipmap.me_icecream)) );
-
-
+        profiles.add( new Profile("Ricardo Centeno","5514382887", "@rickstart", "ricardo.celj@gmail.com",getResources().getDrawable(R.mipmap.pic_ricardo)) );
+        profiles.add(new Profile("Antonio Yee", "6671265734", "@antonioyee", "yee.antonio@gmail.com", getResources().getDrawable(R.mipmap.pic_yee) ));
+        profiles.add( new Profile("Antonio Bastidas","6671033236", "@antbastidas", "joa_bastidas@outlook.com",getResources().getDrawable(R.mipmap.pic_antonio)) );
         return profiles;
     }
 
