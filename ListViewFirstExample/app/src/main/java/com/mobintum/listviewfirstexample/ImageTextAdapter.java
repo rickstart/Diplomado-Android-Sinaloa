@@ -34,8 +34,10 @@ public class ImageTextAdapter extends ArrayAdapter {
         ViewHolder holder = new ViewHolder();
 
         holder.text1 = (TextView) rowView.findViewById(R.id.text1);
+        holder.text2 = (TextView) rowView.findViewById(R.id.text2);
         holder.imgthumbnail = (ImageView) rowView.findViewById(R.id.imgthumbnail);
         holder.text1.setText(array.get(position).getName());
+        holder.text2.setText(array.get(position).getEmail());
         holder.imgthumbnail.setImageDrawable(array.get(position).getPhoto());
 
         return rowView;
@@ -43,7 +45,7 @@ public class ImageTextAdapter extends ArrayAdapter {
 
     class ViewHolder{
 
-        TextView text1;
+        TextView text1, text2;
         ImageView imgthumbnail;
 
     }
