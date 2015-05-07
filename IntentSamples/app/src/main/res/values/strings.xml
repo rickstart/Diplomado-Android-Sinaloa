@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">IntentSamples</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="call">Llamar</string>
+    <string name="email">Email</string>
+    <string name="share">Compartir</string>
+    <string name="browser">Navegador</string>
+    <string name="take_picture">Tomar Fotor</string>
+    <string name="change_activity">Cambiar Activity</string>
+
+</resources>
