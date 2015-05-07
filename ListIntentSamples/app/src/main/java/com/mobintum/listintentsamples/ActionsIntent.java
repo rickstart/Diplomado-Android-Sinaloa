@@ -54,7 +54,7 @@ public class ActionsIntent {
 
         Intent intentCall = new Intent(Intent.ACTION_DIAL,
                 Uri.parse("tel:(521) 5514382887"));
-
+        intentCall.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ActionsIntent action = new ActionsIntent("Llamar",intentCall,context.getResources().getDrawable(R.mipmap.ic_phone));
 
         actions.add(action);
@@ -71,25 +71,26 @@ public class ActionsIntent {
 
         Intent intentBrowser = new Intent(Intent.ACTION_VIEW);
         intentBrowser.setData(Uri.parse("http://www.github.com"));
-
+        intentBrowser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         actions.add(new ActionsIntent("Abrir GitHub",intentBrowser,context.getResources().getDrawable(R.mipmap.ic_browser)));
 
         Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
+        intentCamera.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         actions.add(new ActionsIntent("Tomar Foto",intentCamera,context.getResources().getDrawable(R.mipmap.ic_camera)));
 
         Intent intentShare = new Intent(Intent.ACTION_SEND);
         intentShare.setType("text/plain");
         intentShare.putExtra(android.content.Intent.EXTRA_SUBJECT, "ETSTSTS");
         intentShare.putExtra(android.content.Intent.EXTRA_TEXT, "Example text");
-
+        intentShare.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         actions.add(new ActionsIntent("Compartir",intentShare,context.getResources().getDrawable(R.mipmap.ic_share)));
 
         Intent intentActivity = new Intent(context, SecondActivity.class);
-
+        intentActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         actions.add(new ActionsIntent("Cambiar de Pantalla",intentActivity,context.getResources().getDrawable(R.mipmap.ic_screen)));
 
         Intent intentTwitter = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?screen_name=rickstart"));
+        intentTwitter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         actions.add(new ActionsIntent("Abrir en Twitter",intentTwitter,context.getResources().getDrawable(R.mipmap.ic_twitter)));
 

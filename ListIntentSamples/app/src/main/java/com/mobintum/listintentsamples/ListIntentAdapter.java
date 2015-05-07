@@ -26,7 +26,7 @@ public class ListIntentAdapter extends ArrayAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -40,6 +40,12 @@ public class ListIntentAdapter extends ArrayAdapter {
         holder.textDescription.setText(actionsIntent.get(position).getDescription());
         holder.btnAction.setImageDrawable(actionsIntent.get(position).getIcon());
 
+        holder.btnAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(actionsIntent.get(position).getIntent());
+            }
+        });
 
         return rowView;
     }
