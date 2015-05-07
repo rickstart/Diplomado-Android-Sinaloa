@@ -9,5 +9,7 @@
     <string name="browser">Navegador</string>
     <string name="take_picture">Tomar Fotor</string>
     <string name="change_activity">Cambiar Activity</string>
+    <string name="facebook">Facebook</string>
+    <string name="title_activity_second">SecondActivity</string>
 
 </resources>
