@@ -1,9 +1,12 @@
 package com.mobintum.musicplayer;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -24,6 +27,16 @@ public class MainActivity extends ActionBarActivity {
         adapter = new ListSongAdapter(getApplicationContext(),R.layout.item_list_song,songs);
 
         listSongs.setAdapter(adapter);
+
+        listSongs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), PlayerSongActivity.class);
+                intent.putExtra("position", position);
+                startActivity(intent);
+
+            }
+        });
 
     }
 
