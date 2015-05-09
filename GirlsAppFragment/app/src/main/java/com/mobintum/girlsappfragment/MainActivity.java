@@ -3,26 +3,24 @@ package com.mobintum.girlsappfragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends ActionBarActivity implements ListGirlsFragment.OnFragmentInteractionListener {
 
-    float density;
+    private String resourceType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics outMetrics = new DisplayMetrics ();
-        display.getMetrics(outMetrics);
-        density  = getResources().getDisplayMetrics().density;
-        Log.e("DENSITY", ":"+density);
-        if(density==2.0) {
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.activity_main, null);
+        resourceType = view.getTag().toString();
+        setContentView(view);
+
+        if(resourceType.equals("sw600dp")) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container1, ListGirlsFragment.newInstance(Girl.getDataString(getApplicationContext())))
@@ -69,7 +67,7 @@ public class MainActivity extends ActionBarActivity implements ListGirlsFragment
     @Override
     public void onGirlSelected(int position) {
 
-        if(density==2.0) {
+        if(resourceType.equals("sw600dp")) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.container2, GirlDetailFragment.newInstance(position))
