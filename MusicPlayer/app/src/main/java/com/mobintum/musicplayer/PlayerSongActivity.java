@@ -91,13 +91,10 @@ public class PlayerSongActivity extends ActionBarActivity implements View.OnClic
     }
 
     @Override
-    public void onDestroy() {
-
+    protected void onDestroy() {
         mPlayer.stop();
         super.onDestroy();
-
     }
-
 
     public void loadData(Song song){
 
