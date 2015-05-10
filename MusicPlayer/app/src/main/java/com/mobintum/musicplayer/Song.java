@@ -81,7 +81,7 @@ public class Song {
 
         arraySongs.add(new Song("Get Lucky", "Daft Punk", "Get Lucky","song_getlucky","5:03",context.getResources().getDrawable(R.mipmap.thumb_get_lucky)));
         arraySongs.add(new Song("Tachas y Perico", "Galatzia", "Unknow","song_tachas","5:03",context.getResources().getDrawable(R.mipmap.thumb_galatzia_tachas)));
-
+        arraySongs.add(new Song("Love Me Again", "John Newman", "Unknow","john_newman_loveme_again","5:03",context.getResources().getDrawable(R.mipmap.ic_john_newman)));
         return arraySongs;
 
     }
