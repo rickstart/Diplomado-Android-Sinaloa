@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mobintum.movieexample.fragments.DetailMovieFragment">
+
+       <ImageView
+           android:layout_width="@dimen/poster_movie"
+           android:layout_height="wrap_content"
+           android:id="@+id/imgPoster"/>
+        <TextView
+            android:id="@+id/textTitleDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textSynopsisl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+   
+    
+
+</LinearLayout>

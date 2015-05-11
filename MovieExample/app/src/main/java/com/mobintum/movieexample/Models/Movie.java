@@ -1,5 +1,7 @@
 package com.mobintum.movieexample.Models;
 
+import android.graphics.Bitmap;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -16,6 +18,7 @@ public class Movie {
     private int audienceScore;
     private String synopsis;
     private String urlThumb;
+    private Bitmap bitmap;
 
     public Movie(String title, int year, int criticScore, int audienceScore, String synopsis, String urlThumb) {
         this.title = title;
@@ -24,6 +27,14 @@ public class Movie {
         this.audienceScore = audienceScore;
         this.synopsis = synopsis;
         this.urlThumb = urlThumb;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     public String getTitle() {

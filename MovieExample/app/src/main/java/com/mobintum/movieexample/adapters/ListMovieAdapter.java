@@ -53,18 +53,19 @@ public class ListMovieAdapter extends ArrayAdapter {
             new PostersAsyncTask().execute(movies);
         else{
             holder.imgThumb.setImageBitmap(posters.get(position));
+            movies.get(position).setBitmap(posters.get(position));
         }
-
-       /* try{
+/*
+       try{
             if(posters.get(position)!=null) {
                 holder.imgThumb.setImageBitmap(posters.get(position));
             }
         }catch (Exception e) {
 
-                new DownloadAsyncTask(position).execute(holder);
+                new PostersAsyncTask2(position).execute(movies);
 
-        }
-*/
+        }*/
+
         return viewRow;
     }
 
@@ -136,6 +137,47 @@ public class ListMovieAdapter extends ArrayAdapter {
             if(postersAsync!=null){
 
                 posters = postersAsync;
+            }
+        }
+
+    }
+
+    private class PostersAsyncTask2 extends AsyncTask<ArrayList<Movie>, Void, Bitmap> {
+
+        int position;
+
+        public PostersAsyncTask2(int position){
+            this.position = position;
+        }
+
+        @Override
+        protected Bitmap doInBackground(ArrayList<Movie>... params) {
+
+            ArrayList<Movie> movies = params[0];
+            ArrayList<Bitmap> postersAsync = new ArrayList<Bitmap>();
+            Bitmap localBitmap = null;
+
+            try {
+
+                    URL imageURL = new URL(movies.get(position).getUrlThumb());
+                    localBitmap = BitmapFactory.decodeStream(imageURL.openStream());
+                    return localBitmap;
+
+
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+                return localBitmap;
+            }
+
+        }
+        @Override
+        protected void onPostExecute(Bitmap poster) {
+
+            if(poster!=null){
+
+                posters.add(position,poster);
             }
         }
 
