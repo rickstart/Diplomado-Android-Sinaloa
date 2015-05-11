@@ -19,7 +19,7 @@ public class MainActivity extends ActionBarActivity  implements ListMoviesFragme
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, ListMoviesFragment.newInstance("Batman"))
+                .replace(R.id.container, ListMoviesFragment.newInstance("Love"))
                 .commit();
 
 

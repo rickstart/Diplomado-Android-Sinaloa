@@ -26,6 +26,7 @@ public class ListMovieAdapter extends ArrayAdapter {
     private Context context;
     private int resource;
     private ArrayList<Movie> movies;
+    ArrayList<Bitmap> posters ;
 
     public ListMovieAdapter(Context context, int resource, ArrayList<Movie> movies) {
         super(context, resource, movies);
@@ -47,8 +48,23 @@ public class ListMovieAdapter extends ArrayAdapter {
 
         holder.textTitle.setText(movie.getTitle());
         holder.textYear.setText(""+movie.getYear());
-        new DownloadAsyncTask(position).execute(holder);
 
+        if(posters==null)
+            new PostersAsyncTask().execute(movies);
+        else{
+            holder.imgThumb.setImageBitmap(posters.get(position));
+        }
+
+       /* try{
+            if(posters.get(position)!=null) {
+                holder.imgThumb.setImageBitmap(posters.get(position));
+            }
+        }catch (Exception e) {
+
+                new DownloadAsyncTask(position).execute(holder);
+
+        }
+*/
         return viewRow;
     }
 
@@ -82,8 +98,46 @@ public class ListMovieAdapter extends ArrayAdapter {
         @Override
         protected void onPostExecute(ViewHolder result) {
             if (result.bitmap != null ) {
-                result.imgThumb.setImageBitmap(result.bitmap);
+                posters.add(position,result.bitmap);
+                //result.imgThumb.setImageBitmap(result.bitmap);
             }
         }
+
+
+    }
+
+    private class PostersAsyncTask extends AsyncTask<ArrayList<Movie>, Void, ArrayList<Bitmap>> {
+
+
+        @Override
+        protected ArrayList<Bitmap> doInBackground(ArrayList<Movie>... params) {
+
+            ArrayList<Movie> movies = params[0];
+            ArrayList<Bitmap> postersAsync = new ArrayList<Bitmap>();
+
+            try {
+                for (int i=0; i<movies.size();i++){
+
+                    URL imageURL = new URL(movies.get(i).getUrlThumb());
+                    Bitmap localBitmap = BitmapFactory.decodeStream(imageURL.openStream());
+                    postersAsync.add(localBitmap);
+
+                }
+
+            } catch (IOException e) {
+
+                postersAsync = null;
+            }
+            return postersAsync;
+        }
+        @Override
+        protected void onPostExecute(ArrayList<Bitmap> postersAsync) {
+
+            if(postersAsync!=null){
+
+                posters = postersAsync;
+            }
+        }
+
     }
 }

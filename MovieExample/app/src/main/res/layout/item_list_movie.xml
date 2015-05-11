@@ -5,8 +5,9 @@
 
     <ImageView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:id="@+id/imgThumb"
+        android:scaleType="fitCenter"
         android:layout_weight="1"
         android:src="@mipmap/tmb_movie"
         android:layout_gravity="center"/>
