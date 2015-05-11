@@ -43,8 +43,11 @@ public class ListMovieAdapter extends ArrayAdapter {
         holder.imgThumb = (ImageView) viewRow.findViewById(R.id.imgThumb);
         holder.textTitle = (TextView) viewRow.findViewById(R.id.textTitle);
         holder.textYear = (TextView) viewRow.findViewById(R.id.textYear);
+        Movie movie = movies.get(position);
 
-
+        holder.textTitle.setText(movie.getTitle());
+        holder.textYear.setText(""+movie.getYear());
+        new DownloadAsyncTask(position).execute(holder);
 
         return viewRow;
     }
