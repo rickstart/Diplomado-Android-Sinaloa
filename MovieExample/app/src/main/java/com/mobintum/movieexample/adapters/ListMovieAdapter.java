@@ -33,6 +33,8 @@ public class ListMovieAdapter extends ArrayAdapter {
         View viewRow = inflater.inflate(R.layout.item_list_movie,null);
 
 
+
+
         return viewRow;
     }
 }
