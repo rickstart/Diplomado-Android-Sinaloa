@@ -1,4 +1,4 @@
-package com.mobintum.musicplayer;
+package com.mobintum.musicplayer.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +7,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.mobintum.musicplayer.fragments.PlayerFragment;
+import com.mobintum.musicplayer.R;
+import com.mobintum.musicplayer.models.Song;
+import com.mobintum.musicplayer.fragments.ListSongFragment;
 
 
 public class ManagerActivity extends ActionBarActivity implements ListSongFragment.OnFragmentInteractionListener {

@@ -1,4 +1,4 @@
-package com.mobintum.musicplayer;
+package com.mobintum.musicplayer.fragments;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.mobintum.musicplayer.R;
+import com.mobintum.musicplayer.models.Song;
+import com.mobintum.musicplayer.adapters.ListSongAdapter;
 
 import java.util.ArrayList;
 

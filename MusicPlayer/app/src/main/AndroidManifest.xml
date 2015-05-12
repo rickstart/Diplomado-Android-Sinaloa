@@ -8,16 +8,23 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name" >
 
         </activity>
         <activity
-            android:name=".PlayerSongActivity"
+            android:name=".activities.PlayerSongActivity"
             android:label="@string/title_activity_player_song" >
         </activity>
         <activity
-            android:name=".ManagerActivity"
+            android:name=".activities.ManagerActivity"
+            android:label="@string/title_activity_manager" >
+
+
+        </activity>
+
+        <activity
+            android:name=".database.AndroidDatabaseManager"
             android:label="@string/title_activity_manager" >
 
             <intent-filter>
