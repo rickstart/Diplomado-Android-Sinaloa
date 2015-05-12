@@ -5,12 +5,13 @@ import android.graphics.Bitmap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Rick on 11/05/15.
  */
-public class Movie {
+public class Movie implements Serializable {
 
     private String title;
     private int year;
@@ -108,6 +109,7 @@ public class Movie {
                 String urlThumb = jsonPosters.optString("thumbnail", null);
 
                 Movie movie = new Movie(title,year,criticScore,audienceScore,synopsis,urlThumb);
+
                 movies.add(movie);
 
             }

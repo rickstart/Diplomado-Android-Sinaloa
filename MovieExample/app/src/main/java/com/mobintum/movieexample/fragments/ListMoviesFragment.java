@@ -1,14 +1,22 @@
 package com.mobintum.movieexample.fragments;
 
 import android.app.Activity;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.mobintum.movieexample.Models.Movie;
 import com.mobintum.movieexample.R;
@@ -44,6 +52,7 @@ public class ListMoviesFragment extends Fragment {
     private ListMovieAdapter adapter;
     private ArrayList<Movie> movies = new ArrayList<>();
     private final static String API_KEY = "35hg37n2zaybbwf7wncj9vgw";
+    private Menu optionMenu;
 
     public static ListMoviesFragment newInstance(String paramQuery) {
         ListMoviesFragment fragment = new ListMoviesFragment();
@@ -60,6 +69,7 @@ public class ListMoviesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             this.paramQuery = getArguments().getString(ARG_PARAM_QUERY);
 
@@ -79,7 +89,9 @@ public class ListMoviesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(mListener!=null){
-                    mListener.onMovieSelected(position);
+                    Movie movie = movies.get(position);
+                    Log.e("SIO", movie.getSynopsis());
+                    mListener.onMovieSelected(movie);
                 }
             }
         });
@@ -107,10 +119,53 @@ public class ListMoviesFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //super.onCreateOptionsMenu(menu, inflater);
 
+        this.optionMenu = menu;
+        menu.clear();
+        inflater.inflate(R.menu.menu_list_fragment,menu);
+
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.menuSearch).getActionView();
+        SearchableInfo searchableInfo = searchManager.getSearchableInfo(getActivity().getComponentName());
+        searchView.setSearchableInfo(searchableInfo);
+        //searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                Log.e("QUERY", query);
+                String querySpace = query.trim().replaceAll(" +","%20");
+                new RottenSearchTask().execute("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" + API_KEY + "&q="+querySpace);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    }
+
+    public void setRefreshActionButtonState(boolean refresh){
+        if(optionMenu!=null){
+            MenuItem refreshItem = optionMenu.findItem(R.id.menuRefresh);
+            if(refreshItem!=null){
+                if(refresh){
+                    refreshItem.setActionView(R.layout.inderterminate_progress);
+                }else{
+                    refreshItem.setActionView(null);
+                }
+            }
+
+        }
+
+    }
     public interface OnFragmentInteractionListener {
 
-        public void onMovieSelected(int position);
+        public void onMovieSelected(Movie movie);
     }
 
 
@@ -119,6 +174,7 @@ public class ListMoviesFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            setRefreshActionButtonState(true);
         }
 
         @Override
@@ -159,13 +215,17 @@ public class ListMoviesFragment extends Fragment {
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
 
+            setRefreshActionButtonState(false);
             if(response!=null){
 
 
                 movies = Movie.parseJSON(response);
-                
+
+                Log.e("SYN",movies.get(4).getSynopsis());
+                adapter.clear();
                 adapter.addAll(movies);
                 adapter.notifyDataSetChanged();
+
 
 
             }

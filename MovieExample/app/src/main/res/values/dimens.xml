@@ -5,4 +5,5 @@
     <dimen name="font_medium">25dp</dimen>
     <dimen name="font_normal">20dp</dimen>
     <dimen name="poster_movie">300dp</dimen>
+    <dimen name="big_font">35dp</dimen>
 </resources>

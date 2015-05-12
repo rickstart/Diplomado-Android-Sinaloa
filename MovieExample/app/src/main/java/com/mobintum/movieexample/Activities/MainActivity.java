@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mobintum.movieexample.Models.Movie;
 import com.mobintum.movieexample.R;
+import com.mobintum.movieexample.fragments.DetailMovieFragment;
 import com.mobintum.movieexample.fragments.ListMoviesFragment;
 
 
@@ -19,7 +21,7 @@ public class MainActivity extends ActionBarActivity  implements ListMoviesFragme
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, ListMoviesFragment.newInstance("Love"))
+                .replace(R.id.container, ListMoviesFragment.newInstance("a"))
                 .commit();
 
 
@@ -49,7 +51,12 @@ public class MainActivity extends ActionBarActivity  implements ListMoviesFragme
     }
 
     @Override
-    public void onMovieSelected(int position) {
+    public void onMovieSelected(Movie movie) {
+
+        fragmentManager.beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.container, DetailMovieFragment.newInstance(movie))
+                .commit();
 
     }
 }
