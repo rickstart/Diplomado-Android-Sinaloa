@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.mobintum.movieexample.Models.Movie;
 import com.mobintum.movieexample.R;
@@ -44,7 +42,7 @@ public class ListMoviesFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private ListView listMovies;
     private ListMovieAdapter adapter;
-    private ArrayList<Movie> movies = new ArrayList<Movie>();
+    private ArrayList<Movie> movies = new ArrayList<>();
     private final static String API_KEY = "35hg37n2zaybbwf7wncj9vgw";
 
     public static ListMoviesFragment newInstance(String paramQuery) {
@@ -65,7 +63,7 @@ public class ListMoviesFragment extends Fragment {
         if (getArguments() != null) {
             this.paramQuery = getArguments().getString(ARG_PARAM_QUERY);
 
-            new RottenSearchTask().execute("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" + API_KEY + "&q=" + paramQuery + "&page_limit=10");
+            new RottenSearchTask().execute("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=" + API_KEY + "&q=" + paramQuery + "&page_limit=50");
         }
     }
 
@@ -115,23 +113,7 @@ public class ListMoviesFragment extends Fragment {
         public void onMovieSelected(int position);
     }
 
-    private void refreshMoviesList(ArrayList<Movie> movies)
-    {
 
-        if(movies!=null) {
-
-            if(movies.size()==0)
-                Toast.makeText(getActivity(), "EMPTY", Toast.LENGTH_SHORT).show();
-            else {
-                Log.d("Test", "Movies: "+movies.size());
-
-                adapter = new ListMovieAdapter(getActivity(),R.layout.item_list_movie,movies);
-                listMovies.setAdapter(adapter);
-            }
-        }
-
-
-    }
 
     private class RottenSearchTask extends AsyncTask<String, String, String>{
         @Override
@@ -143,7 +125,7 @@ public class ListMoviesFragment extends Fragment {
         protected String doInBackground(String... params) {
             HttpClient httpClient = new DefaultHttpClient();
             HttpResponse response;
-            String responseString = null;
+            String responseString;
 
             try{
                 response = httpClient.execute(new HttpGet(params[0]));
@@ -181,8 +163,10 @@ public class ListMoviesFragment extends Fragment {
 
 
                 movies = Movie.parseJSON(response);
-                Log.i("ASYNCTASK", "movies size="+movies.size()+" response="+response);
-                refreshMoviesList(movies);
+                
+                adapter.addAll(movies);
+                adapter.notifyDataSetChanged();
+
 
             }
         }
