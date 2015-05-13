@@ -1,9 +1,10 @@
 package com.mobintum.musicplayer.models;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.database.Cursor;
+import android.util.Log;
 
-import com.mobintum.musicplayer.R;
+import com.mobintum.musicplayer.database.DatabaseAdapter;
 
 import java.util.ArrayList;
 
@@ -17,9 +18,9 @@ public class SongOld {
     private String album;
     private String urlSong;
     private String time;
-    private Drawable albumImage;
+    private String albumImage;
 
-    public SongOld(String title, String artist, String album, String urlSong, String time, Drawable albumImage) {
+    public SongOld(String title, String artist, String album, String urlSong, String time, String albumImage) {
         this.title = title;
         this.artist = artist;
         this.album = album;
@@ -68,14 +69,14 @@ public class SongOld {
         this.time = time;
     }
 
-    public Drawable getAlbumImage() {
+    public String getAlbumImage() {
         return albumImage;
     }
 
-    public void setAlbumImage(Drawable albumImage) {
+    public void setAlbumImage(String albumImage) {
         this.albumImage = albumImage;
     }
-
+/*
     public static ArrayList<SongOld> getSongs(Context context){
 
         ArrayList<SongOld> arraySongs = new ArrayList<SongOld>();
@@ -86,6 +87,41 @@ public class SongOld {
         arraySongs.add(new SongOld("Love Me Again", "John Newman", "Unknow","john_newman_loveme_again","5:03",context.getResources().getDrawable(R.mipmap.ic_john_newman)));
         return arraySongs;
 
+    }*/
+
+    public static ArrayList<SongOld> getSongs(Context contex){
+
+        Cursor cursor;
+        ArrayList<SongOld> songs = new ArrayList<SongOld>();
+
+        try{
+            cursor = DatabaseAdapter.getDB(contex).rawQuery(
+              "select s.name as title, a.name as artist, al.name as album, s.fileName, al.posterPic " +
+              "from song s, artist a, album al " +
+              "where s.fk_albumId= al.albumId " +
+              "and al.fk_artistId=a.artistId"
+             ,null);
+
+            if(cursor!=null){
+                Log.e("SONG", "2");
+                for (cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()){
+                    String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                    String artist = cursor.getString(cursor.getColumnIndexOrThrow("artist"));;
+                    String album = cursor.getString(cursor.getColumnIndexOrThrow("album"));;
+                    String fileName = cursor.getString(cursor.getColumnIndexOrThrow("fileName"));;
+                    String posterPic = cursor.getString(cursor.getColumnIndexOrThrow("posterPic"));
+                    songs.add(new SongOld(title,artist,album,fileName,"00:00",posterPic));
+
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+        return songs;
     }
 
 }

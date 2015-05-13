@@ -1,6 +1,7 @@
 package com.mobintum.musicplayer.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.mobintum.musicplayer.R;
 import com.mobintum.musicplayer.models.SongOld;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -45,7 +47,10 @@ public class ListSongAdapter extends ArrayAdapter {
 
         holder.textSong.setText(songs.get(position).getTitle());
         holder.textArtist.setText(songs.get(position).getArtist());
-        holder.imageThumbSong.setImageDrawable(songs.get(position).getAlbumImage());
+
+        Log.e("ADAPTER", songs.get(position).getAlbumImage() );
+        Picasso.with(context).load(songs.get(position).getAlbumImage()).into(holder.imageThumbSong);
+
 
 
         return rowView;

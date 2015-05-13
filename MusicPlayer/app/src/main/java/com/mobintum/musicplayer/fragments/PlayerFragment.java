@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.mobintum.musicplayer.R;
 import com.mobintum.musicplayer.models.SongOld;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -81,7 +82,8 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Ru
     }
 
     private void loadData(SongOld song){
-        imgThumbDetailF.setImageDrawable(song.getAlbumImage());
+        //imgThumbDetailF.setImageDrawable(song.getAlbumImage());
+        Picasso.with(getActivity()).load(song.getAlbumImage()).into(imgThumbDetailF);
         textDetailSongF.setText(song.getTitle());
         textDetailArtistF.setText(song.getArtist());
         textDetailAlbumF.setText(song.getAlbum());

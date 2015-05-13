@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.mobintum.musicplayer.R;
 import com.mobintum.musicplayer.models.SongOld;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -100,8 +101,8 @@ public class PlayerSongActivity extends ActionBarActivity implements View.OnClic
     }
 
     public void loadData(SongOld song){
-
-        imgThumbDetail.setImageDrawable(song.getAlbumImage());
+        //imgThumbDetail.setImageDrawable(song.getAlbumImage());
+        Picasso.with(getApplicationContext()).load(song.getUrlSong()).into(imgThumbDetail);
         textDetailSong.setText(song.getTitle());
         textDetailArtist.setText(song.getArtist());
         textDetailAlbum.setText(song.getAlbum());
