@@ -2,6 +2,7 @@ package com.mobintum.musicplayer.models;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import com.mobintum.musicplayer.database.DatabaseAdapter;
 
@@ -79,5 +80,23 @@ public class Album {
 
         return DatabaseAdapter.getDB(context).insert(TABLE_NAME, null,cv);
 
+    }
+
+    public static int getIdAlbum(Context context, String nameAlbum){
+
+        try {
+            int id=0;
+            Cursor cursor = DatabaseAdapter.getDB(context).query(TABLE_NAME, null, NAME + "=?", new String[]{nameAlbum}, null, null, null);
+            if (cursor != null) {
+                for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()){
+                    id = cursor.getInt(cursor.getColumnIndexOrThrow(ALBUM_ID));
+                }
+            }
+            return id;
+        }catch (Exception e){
+            e.printStackTrace();
+            return 0;
+
+        }
     }
 }

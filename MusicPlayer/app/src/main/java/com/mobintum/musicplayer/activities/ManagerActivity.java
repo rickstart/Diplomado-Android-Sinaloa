@@ -14,6 +14,7 @@ import com.mobintum.musicplayer.fragments.PlayerFragment;
 import com.mobintum.musicplayer.models.Album;
 import com.mobintum.musicplayer.models.Artist;
 import com.mobintum.musicplayer.models.Genre;
+import com.mobintum.musicplayer.models.Song;
 import com.mobintum.musicplayer.models.SongOld;
 
 
@@ -32,18 +33,6 @@ public class ManagerActivity extends ActionBarActivity implements ListSongFragme
         setContentView(view);
         fragmentManager = getSupportFragmentManager();
 
-        /*
-        result = Artist.insert(getApplicationContext(),new Artist("Daft Punk",30, "https://a4-images.myspacecdn.com/images03/2/85a286a4bbe84b56a6d57b1e5bd03ef4/300x300.jpg"));
-        result = Artist.insert(getApplicationContext(),new Artist("John Newman",30, "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTCZrfPiEpCTC9MBytUNJlrKz_h6KRES0GoQzbD_jd7FTQytN0A"));
-        result = Artist.insert(getApplicationContext(),new Artist("Galatzi",30, "http://media.vivelatino.com.mx/h2g2/bands/Galatzia.jpg?v=1418079457"));
-        */
-        Genre.insert(getApplicationContext(), new Genre("Techno"));
-        Genre.insert(getApplicationContext(), new Genre("POP"));
-        Genre.insert(getApplicationContext(), new Genre("Vlog"));
-
-        Album.insert(getApplicationContext(), new Album("Random Access Memories","http://upload.wikimedia.org/wikipedia/en/7/71/Get_Lucky.jpg", Artist.getIdArtist(getApplicationContext(),"Daft Punk"),))
-
-
 
         if(resourceType.equals("sw600dp") || resourceType.equals("sw320dp-land")){
             fragmentManager.beginTransaction()
@@ -57,6 +46,56 @@ public class ManagerActivity extends ActionBarActivity implements ListSongFragme
         }
     }
 
+
+    public void insertSampleData(){
+        Artist.insert(getApplicationContext(),new Artist("Daft Punk",30, "https://a4-images.myspacecdn.com/images03/2/85a286a4bbe84b56a6d57b1e5bd03ef4/300x300.jpg"));
+        Artist.insert(getApplicationContext(),new Artist("John Newman",30, "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTCZrfPiEpCTC9MBytUNJlrKz_h6KRES0GoQzbD_jd7FTQytN0A"));
+        Artist.insert(getApplicationContext(),new Artist("Galatzi",30, "http://media.vivelatino.com.mx/h2g2/bands/Galatzia.jpg?v=1418079457"));
+
+        Genre.insert(getApplicationContext(), new Genre("Techno"));
+        Genre.insert(getApplicationContext(), new Genre("POP"));
+        Genre.insert(getApplicationContext(), new Genre("Vlog"));
+
+        Album.insert(getApplicationContext(), new Album(
+                "Random Access Memories",
+                "http://upload.wikimedia.org/wikipedia/en/7/71/Get_Lucky.jpg",
+                Artist.getIdArtist(getApplicationContext(),"Daft Punk"),
+                Genre.getIdGenre(getApplicationContext(),"Techno")));
+
+
+        Album.insert(getApplicationContext(), new Album(
+                "Tribute",
+                "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcStNpeui4W5jyEtNspohbJ9mrZ8mUFcqOWOA-7Ao_kXkihSYBAFzQ",
+                Artist.getIdArtist(getApplicationContext(), "John Newman"),
+                Genre.getIdGenre(getApplicationContext(), "POP")));
+
+        Album.insert(getApplicationContext(), new Album(
+                "Galatzia Vloger",
+                "https://tunoerespop.files.wordpress.com/2012/07/galatzia_portada_album.jpg",
+                Artist.getIdArtist(getApplicationContext(), "Galatzia"),
+                Genre.getIdGenre(getApplicationContext(), "Vlog")));
+
+
+
+        Song.insert(getApplicationContext(), new Song(
+                "Get Lucky",
+                "song_getlucky",
+                Album.getIdAlbum(getApplicationContext(),"Random Access Memories")
+        ));
+
+        Song.insert(getApplicationContext(), new Song(
+                "Tachas y Perico",
+                "song_tachas",
+                Album.getIdAlbum(getApplicationContext(),"Galatzia Vloger")
+        ));
+
+        Song.insert(getApplicationContext(), new Song(
+                "Love me again",
+                "john_newman_loveme_again",
+                Album.getIdAlbum(getApplicationContext(), "Tribute")
+        ));
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

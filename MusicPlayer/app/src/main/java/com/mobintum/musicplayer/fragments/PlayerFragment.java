@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mobintum.musicplayer.R;
-import com.mobintum.musicplayer.models.Song;
+import com.mobintum.musicplayer.models.SongOld;
 
 import java.util.ArrayList;
 
@@ -26,10 +26,10 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Ru
     private TextView textDetailSongF, textDetailArtistF, textDetailAlbumF, textDetailTimeF;
     private ProgressBar progressBarF;
     private MediaPlayer mPlayer;
-    private Song song;
+    private SongOld song;
     private int flag=0;
     private Thread thread;
-    private ArrayList<Song> songs;
+    private ArrayList<SongOld> songs;
 
     public static PlayerFragment newInstance(int mPosition) {
         PlayerFragment fragment = new PlayerFragment();
@@ -49,7 +49,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Ru
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mPosition = getArguments().getInt(ARG_PARAM_POSITION);
-            songs = Song.getSongs(getActivity());
+            songs = SongOld.getSongs(getActivity());
             song = songs.get(mPosition);
 
         }
@@ -80,7 +80,7 @@ public class PlayerFragment extends Fragment implements View.OnClickListener, Ru
         return viewRoot;
     }
 
-    private void loadData(Song song){
+    private void loadData(SongOld song){
         imgThumbDetailF.setImageDrawable(song.getAlbumImage());
         textDetailSongF.setText(song.getTitle());
         textDetailArtistF.setText(song.getArtist());

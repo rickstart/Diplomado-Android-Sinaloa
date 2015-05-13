@@ -20,11 +20,6 @@
             android:name=".activities.ManagerActivity"
             android:label="@string/title_activity_manager" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
 
         </activity>
@@ -33,7 +28,11 @@
             android:name=".database.AndroidDatabaseManager"
             android:label="@string/title_activity_manager" >
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
     </application>
