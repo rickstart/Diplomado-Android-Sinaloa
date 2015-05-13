@@ -17,7 +17,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "MusicPlayer.db";
     private static final int VER_1 = 1;
-    private static final int DATABASE_VERSION = VER_1;
+    private static final int VER_2 = 2;
+    private static final int DATABASE_VERSION = VER_2;
 
     private Context context;
 
@@ -40,14 +41,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "  name VARCHAR(250) NULL)");
 
         db.execSQL("CREATE TABLE IF NOT EXISTS song (" +
-                "  songId INTEGER NOT NULL," +
+                "  songId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "  name VARCHAR(250) NULL," +
                 "  fileName VARCHAR(250) NULL," +
                 "  fk_albumId INT NOT NULL," +
                 "  FOREIGN KEY (fk_albumId) REFERENCES album (albumId))");
 
         db.execSQL("CREATE TABLE IF NOT EXISTS album (" +
-                "  albumId INTEGER NOT NULL," +
+                "  albumId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "  name VARCHAR(45) NULL," +
                 "  posterPic VARCHAR(250) NULL," +
                 "  fk_artistId INTEGER NOT NULL," +

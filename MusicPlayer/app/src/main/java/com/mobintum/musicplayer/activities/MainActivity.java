@@ -10,8 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.mobintum.musicplayer.R;
-import com.mobintum.musicplayer.models.Song;
 import com.mobintum.musicplayer.adapters.ListSongAdapter;
+import com.mobintum.musicplayer.models.SongOld;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<Song> songs = Song.getSongs(getApplicationContext());
+        ArrayList<SongOld> songs = SongOld.getSongs(getApplicationContext());
         listSongs = (ListView) findViewById(R.id.listSongs);
         adapter = new ListSongAdapter(getApplicationContext(),R.layout.item_list_song,songs);
 

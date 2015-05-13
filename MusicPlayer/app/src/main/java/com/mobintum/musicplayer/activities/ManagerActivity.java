@@ -8,10 +8,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.mobintum.musicplayer.fragments.PlayerFragment;
 import com.mobintum.musicplayer.R;
-import com.mobintum.musicplayer.models.Song;
 import com.mobintum.musicplayer.fragments.ListSongFragment;
+import com.mobintum.musicplayer.fragments.PlayerFragment;
+import com.mobintum.musicplayer.models.Album;
+import com.mobintum.musicplayer.models.Artist;
+import com.mobintum.musicplayer.models.Genre;
+import com.mobintum.musicplayer.models.SongOld;
 
 
 public class ManagerActivity extends ActionBarActivity implements ListSongFragment.OnFragmentInteractionListener {
@@ -29,15 +32,27 @@ public class ManagerActivity extends ActionBarActivity implements ListSongFragme
         setContentView(view);
         fragmentManager = getSupportFragmentManager();
 
+        /*
+        result = Artist.insert(getApplicationContext(),new Artist("Daft Punk",30, "https://a4-images.myspacecdn.com/images03/2/85a286a4bbe84b56a6d57b1e5bd03ef4/300x300.jpg"));
+        result = Artist.insert(getApplicationContext(),new Artist("John Newman",30, "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTCZrfPiEpCTC9MBytUNJlrKz_h6KRES0GoQzbD_jd7FTQytN0A"));
+        result = Artist.insert(getApplicationContext(),new Artist("Galatzi",30, "http://media.vivelatino.com.mx/h2g2/bands/Galatzia.jpg?v=1418079457"));
+        */
+        Genre.insert(getApplicationContext(), new Genre("Techno"));
+        Genre.insert(getApplicationContext(), new Genre("POP"));
+        Genre.insert(getApplicationContext(), new Genre("Vlog"));
+
+        Album.insert(getApplicationContext(), new Album("Random Access Memories","http://upload.wikimedia.org/wikipedia/en/7/71/Get_Lucky.jpg", Artist.getIdArtist(getApplicationContext(),"Daft Punk"),))
+
+
 
         if(resourceType.equals("sw600dp") || resourceType.equals("sw320dp-land")){
             fragmentManager.beginTransaction()
-                    .replace(R.id.containerLeft, ListSongFragment.newInstance(Song.getSongs(getApplicationContext())))
+                    .replace(R.id.containerLeft, ListSongFragment.newInstance(SongOld.getSongs(getApplicationContext())))
                     .commit();
 
         }else {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, ListSongFragment.newInstance(Song.getSongs(getApplicationContext())))
+                    .replace(R.id.container, ListSongFragment.newInstance(SongOld.getSongs(getApplicationContext())))
                     .commit();
         }
     }

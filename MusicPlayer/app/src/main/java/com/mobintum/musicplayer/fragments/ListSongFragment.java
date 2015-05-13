@@ -1,8 +1,8 @@
 package com.mobintum.musicplayer.fragments;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.mobintum.musicplayer.R;
-import com.mobintum.musicplayer.models.Song;
 import com.mobintum.musicplayer.adapters.ListSongAdapter;
+import com.mobintum.musicplayer.models.SongOld;
 
 import java.util.ArrayList;
 
@@ -28,14 +28,14 @@ public class ListSongFragment extends Fragment {
 
 
     private static final String ARG_PARAM_ARRAY = "paramArray";
-    private ArrayList<Song> mArray;
+    private ArrayList<SongOld> mArray;
     private ListView listSongsFragment;
     private ListSongAdapter adapter;
 
 
     private OnFragmentInteractionListener mListener;
 
-    public static ListSongFragment newInstance(ArrayList<Song> mArray) {
+    public static ListSongFragment newInstance(ArrayList<SongOld> mArray) {
         ListSongFragment fragment = new ListSongFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM_ARRAY, mArray);
@@ -52,7 +52,7 @@ public class ListSongFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            this.mArray = (ArrayList<Song>) getArguments().getSerializable(ARG_PARAM_ARRAY);
+            this.mArray = (ArrayList<SongOld>) getArguments().getSerializable(ARG_PARAM_ARRAY);
 
         }
     }
@@ -62,7 +62,7 @@ public class ListSongFragment extends Fragment {
                              Bundle savedInstanceState) {
         View viewRoot = inflater.inflate(R.layout.fragment_list_song, container, false);
         listSongsFragment = (ListView) viewRoot.findViewById(R.id.listSongsFragment);
-        ArrayList<Song> songs = Song.getSongs(getActivity());
+        ArrayList<SongOld> songs = SongOld.getSongs(getActivity());
         adapter = new ListSongAdapter(getActivity(),R.layout.item_list_song,songs);
 
         listSongsFragment.setAdapter(adapter);

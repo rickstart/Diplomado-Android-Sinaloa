@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mobintum.musicplayer.R;
-import com.mobintum.musicplayer.models.Song;
+import com.mobintum.musicplayer.models.SongOld;
 
 import java.util.ArrayList;
 
@@ -27,8 +27,8 @@ public class PlayerSongActivity extends ActionBarActivity implements View.OnClic
     TextView textDetailSong, textDetailArtist, textDetailAlbum, textDetailTime;
     ProgressBar progressBar;
 
-    Song song;
-    ArrayList<Song> songs;
+    SongOld song;
+    ArrayList<SongOld> songs;
     Intent intent ;
     int position;
     int flag = 0;
@@ -43,7 +43,7 @@ public class PlayerSongActivity extends ActionBarActivity implements View.OnClic
         intent= getIntent();
         position = (intent.getExtras()!=null)? intent.getExtras().getInt("ID"): 0 ;
 
-        songs = Song.getSongs(getApplicationContext());
+        songs = SongOld.getSongs(getApplicationContext());
         song = songs.get(position);
 
         btnPlay = (ImageButton) findViewById(R.id.btnPlay);
@@ -99,7 +99,7 @@ public class PlayerSongActivity extends ActionBarActivity implements View.OnClic
         super.onDestroy();
     }
 
-    public void loadData(Song song){
+    public void loadData(SongOld song){
 
         imgThumbDetail.setImageDrawable(song.getAlbumImage());
         textDetailSong.setText(song.getTitle());

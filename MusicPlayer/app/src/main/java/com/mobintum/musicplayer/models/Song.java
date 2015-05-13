@@ -1,90 +1,71 @@
 package com.mobintum.musicplayer.models;
 
+import android.content.ContentValues;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 
-import com.mobintum.musicplayer.R;
-
-import java.util.ArrayList;
+import com.mobintum.musicplayer.database.DatabaseAdapter;
 
 /**
  * Created by Rick on 06/05/15.
  */
 public class Song {
 
-    private String title;
-    private String artist;
-    private String album;
-    private String urlSong;
-    private String time;
-    private Drawable albumImage;
+    public static final String TABLE_NAME = "song";
+    public static final String SONG_ID = "songId";
+    public static final String NAME= "name";
+    public static final String FILE_NAME = "fileName";
+    public static final String FK_ALBUM_ID = "fk_albumId";
 
-    public Song(String title, String artist, String album, String urlSong, String time, Drawable albumImage) {
-        this.title = title;
-        this.artist = artist;
-        this.album = album;
-        this.urlSong = urlSong;
-        this.time = time;
-        this.albumImage = albumImage;
+
+    private int songId;
+    private String name;
+    private String fileName;
+    private int fkAlbumId;
+
+    public Song(String name, String fileName, int fkAlbumId) {
+        this.name = name;
+        this.fileName = fileName;
+        this.fkAlbumId = fkAlbumId;
     }
 
-    public String getTitle() {
-        return title;
+    public int getSongId() {
+        return songId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setSongId(int songId) {
+        this.songId = songId;
     }
 
-    public String getArtist() {
-        return artist;
+    public String getName() {
+        return name;
     }
 
-    public void setArtist(String artist) {
-        this.artist = artist;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAlbum() {
-        return album;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setAlbum(String album) {
-        this.album = album;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
-    public String getUrlSong() {
-        return urlSong;
+    public int getFkAlbumId() {
+        return fkAlbumId;
     }
 
-    public void setUrlSong(String urlSong) {
-        this.urlSong = urlSong;
+    public void setFkAlbumId(int fkAlbumId) {
+        this.fkAlbumId = fkAlbumId;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public Drawable getAlbumImage() {
-        return albumImage;
-    }
-
-    public void setAlbumImage(Drawable albumImage) {
-        this.albumImage = albumImage;
-    }
-
-    public static ArrayList<Song> getSongs(Context context){
-
-        ArrayList<Song> arraySongs = new ArrayList<Song>();
-
-
-        arraySongs.add(new Song("Get Lucky", "Daft Punk", "Get Lucky","song_getlucky","5:03",context.getResources().getDrawable(R.mipmap.thumb_get_lucky)));
-        arraySongs.add(new Song("Tachas y Perico", "Galatzia", "Unknow","song_tachas","5:03",context.getResources().getDrawable(R.mipmap.thumb_galatzia_tachas)));
-        arraySongs.add(new Song("Love Me Again", "John Newman", "Unknow","john_newman_loveme_again","5:03",context.getResources().getDrawable(R.mipmap.ic_john_newman)));
-        return arraySongs;
+    public static long insert(Context context, Song song){
+        ContentValues cv = new ContentValues();
+        cv.put(NAME, song.getName());
+        cv.put(FILE_NAME, song.getFileName());
+        cv.put(FK_ALBUM_ID, song.getFkAlbumId());
+        return DatabaseAdapter.getDB(context).insert(TABLE_NAME, null,cv);
 
     }
 }

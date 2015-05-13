@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mobintum.musicplayer.R;
-import com.mobintum.musicplayer.models.Song;
+import com.mobintum.musicplayer.models.SongOld;
 
 import java.util.ArrayList;
 
@@ -18,11 +18,11 @@ import java.util.ArrayList;
  */
 public class ListSongAdapter extends ArrayAdapter {
 
-    private ArrayList<Song> songs;
+    private ArrayList<SongOld> songs;
     private Context context;
 
 
-    public ListSongAdapter(Context context, int resource, ArrayList<Song> songs) {
+    public ListSongAdapter(Context context, int resource, ArrayList<SongOld> songs) {
         super(context, resource, songs);
 
         this.songs = songs;
